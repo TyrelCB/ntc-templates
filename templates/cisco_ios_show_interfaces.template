@@ -15,6 +15,11 @@ Value ENCAPSULATION (.+?)
 Value QUEUE_STRATEGY (.+)
 Value INPUT_RATE (\d+)
 Value OUTPUT_RATE (\d+)
+Value IN_DISCARD (\d+)
+Value OUT_DISCARD (\d+)
+Value COUNTERS_CLEARED (.*)
+Value IN_PACKETS (\d+)
+Value OUT_PACKETS (\d+)
 
 Start
   ^\S+\s+is\s+.+?,\s+line\s+protocol.*$$ -> Continue.Record
@@ -29,3 +34,8 @@ Start
   ^\s+${DUPLEX},\s+${SPEED},.+$$
   ^.*input\s+rate\s+${INPUT_RATE}.+$$
   ^.*output\s+rate\s+${OUTPUT_RATE}.+$$
+  ^.*Input queue:\s\d/\d+/${IN_DISCARD}.*Total output drops:\s${OUT_DISCARD}
+  ^.*Last\sclearing\sof.+counters\s${COUNTERS_CLEARED}
+  ^\s+${IN_PACKETS}\spackets\sinput
+  ^\s+${OUT_PACKETS}\spackets\soutput
+
