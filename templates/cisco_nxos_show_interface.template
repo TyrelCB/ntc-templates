@@ -12,6 +12,12 @@ Value SPEED (.+?)
 Value BANDWIDTH (\d+\s+\w+)
 Value DELAY (\d+\s+\w+)
 Value ENCAPSULATION (\w+)
+Value IN_DISCARD (\s+\d+)
+Value OUT_DISCARD (\s+\d+)
+Value TX (\d+/\d+)
+Value RX (\d+/\d+)
+Value MODE (\w+)
+Value MEMBER (\w+)
 
 Start
   ^\S+\s+is.+ -> Continue.Record
@@ -24,4 +30,9 @@ Start
   ^\s+${DUPLEX}, ${SPEED}(,|$$)
   ^\s+MTU\s+${MTU}.*BW\s+${BANDWIDTH}.*DLY\s+${DELAY}
   ^\s+Encapsulation\s+${ENCAPSULATION}
+  ^.+${IN_DISCARD} input discard
+  ^.+${OUT_DISCARD} output discard
+  ^.+txload ${TX}.+rxload ${RX}
+  ^  Port mode is ${MODE}
+  ^  Belongs to ${MEMBER}
   ^\s*$$
